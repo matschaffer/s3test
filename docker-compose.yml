@@ -1,0 +1,28 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+      - 80:80
+    links:
+      - db:db
+    volumes:
+      - .:/var/www/html
+    environment:
+      DB_NAME: bedrock
+      DB_USER: bedrock
+      DB_PASSWORD: bedrock
+      DB_HOST: db
+      WP_HOME: http://bedrock.matschaffer.com
+      RUN_MIGRATIONS: 'true'
+      WP_ENV: development
+
+  db:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: bedrock
+      MYSQL_DATABASE: bedrock
+      MYSQL_USER: bedrock
+      MYSQL_PASSWORD: bedrock
